@@ -738,7 +738,15 @@ public class CronTriggerImpl : AbstractTrigger, ICronTrigger
         }
         else if (instr == Quartz.MisfireInstruction.CronTrigger.FireOnceNow)
         {
-            SetNextFireTimeUtc(SystemTime.UtcNow());
+            var lastScheduledTime = GetTimeBefore(SystemTime.UtcNow());
+            if (lastScheduledTime is null || lastScheduledTime <= previousFireTimeUtc)
+            {
+                SetNextFireTimeUtc(SystemTime.UtcNow());
+            }
+            else
+            {
+                SetNextFireTimeUtc(lastScheduledTime);
+            }
         }
     }
 

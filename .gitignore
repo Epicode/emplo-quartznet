@@ -2,6 +2,8 @@
 [Tt]humbs.db
 *.DS_Store
 
+.dist
+
 #Visual Studio files
 *.[Oo]bj
 *.exe
